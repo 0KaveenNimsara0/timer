@@ -1,6 +1,10 @@
 'use client';
 
+import { useState } from 'react';
+
 export default function TitleBar() {
+  const [isPinned, setIsPinned] = useState(false);
+
   return (
     <div className="titlebar">
       <div style={{ display: 'flex', alignItems: 'center', color: '#666', fontSize: '12px', gap: '8px' }}>
@@ -14,11 +18,12 @@ export default function TitleBar() {
             if (typeof window !== 'undefined' && (window as any).require) {
               const { ipcRenderer } = (window as any).require('electron');
               ipcRenderer.send('toggle-always-on-top');
+              setIsPinned(!isPinned);
             }
           }}
-          style={{ height: '100%', background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '0 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
-          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+          style={{ height: '100%', background: isPinned ? 'rgba(255,255,255,0.2)' : 'transparent', border: 'none', color: isPinned ? '#fff' : '#94a3b8', cursor: 'pointer', padding: '0 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          onMouseEnter={(e) => e.currentTarget.style.background = isPinned ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = isPinned ? 'rgba(255,255,255,0.2)' : 'transparent'}
         >
           📌
         </button>
