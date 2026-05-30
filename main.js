@@ -1,7 +1,7 @@
 const { app, BrowserWindow } = require('electron');
-const serve = require('electron-serve');
+const serve = require('electron-serve').default || require('electron-serve');
 const path = require('path');
-const isDev = require('electron-is-dev');
+const isDev = !app.isPackaged;
 
 const appServe = app.isPackaged ? serve({ directory: path.join(__dirname, 'out') }) : null;
 
