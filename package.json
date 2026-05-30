@@ -1,14 +1,19 @@
 {
   "name": "timer_app",
   "version": "0.1.0",
-  "private": true,
+  "main": "main.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "concurrently -n \"NEXT,ELECTRON\" -c \"yellow,blue\" --kill-others \"next dev -p 3005\" \"wait-on tcp:3005 && cross-env PORT=3005 electron .\"",
+    "build": "next build && electron-builder",
+    "next:dev": "next dev",
+    "next:build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "electron-is-dev": "^3.0.1",
+    "electron-serve": "^3.0.1",
+    "lucide-react": "^1.17.0",
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4"
@@ -17,8 +22,13 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "concurrently": "^10.0.0",
+    "cross-env": "^10.1.0",
+    "electron": "^42.3.0",
+    "electron-builder": "^26.8.1",
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wait-on": "^9.0.10"
   }
 }
