@@ -19,6 +19,7 @@ function createWindow() {
     autoHideMenuBar: true,
     alwaysOnTop: false,
     resizable: true,
+    icon: path.join(__dirname, 'public', 'timer_logo.png'),
   });
 
   if (isDev) {

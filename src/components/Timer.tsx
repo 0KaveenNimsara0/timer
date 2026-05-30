@@ -93,6 +93,13 @@ export default function Timer() {
           </div>
         </>
       )}
+
+      {/* Footer Watermark */}
+      <div style={{ position: 'absolute', bottom: '24px', display: 'flex', alignItems: 'center', gap: '6px', opacity: 0.5 }}>
+        <span style={{ color: '#aaa', fontSize: '13px' }}>Developed by</span>
+        <img src="/main_logo.svg" alt="Celiox Logo" style={{ width: '14px', height: '14px' }} />
+        <span style={{ color: '#fff', fontSize: '13px', fontWeight: 600, letterSpacing: '0.5px' }}>CELIOX</span>
+      </div>
     </div>
   );
 }

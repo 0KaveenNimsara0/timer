@@ -1,0 +1,20 @@
+<svg class="h-12 w-12" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <clipPath id="shineClipC">
+            <text x="20" y="27.5" font-family="'Poppins', sans-serif" font-weight="800" font-size="22" text-anchor="middle">C</text>
+        </clipPath>
+    </defs>
+
+<!-- Main Logo -->
+    <Path d="M27 0.5L38.5 19L20 37.5L1.5 19L20 0.5Z" fill="#ffffff"/>
+    <path d="M20 0.5L38.5 19L20 37.5L1.5 19L20 0.5Z" fill="#2563EB"/>
+    <path d="M27.5 8L37.5 19L27.5 30" stroke="#1E40AF" stroke-width="3" stroke-linecap="round"/>
+    
+    <text x="20" y="27.5" font-family="'Poppins', sans-serif" font-weight="800" font-size="22" fill="#FFFFFF" text-anchor="middle">C</text>
+    
+    <g clip-path="url(#shineClipC)">
+        <rect y="0" width="15" height="40" fill="#60A5FA" opacity="0.9" transform="skewX(-20)">
+            <animate attributeName="x" values="-20; 50; 50" keyTimes="0; 0.3; 1" dur="3s" repeatCount="indefinite" />
+        </rect>
+    </g>
+</svg>
