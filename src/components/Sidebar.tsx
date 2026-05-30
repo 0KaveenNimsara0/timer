@@ -257,6 +257,13 @@ export default function Sidebar({
             </div>
           )}
         </div>
+
+        {/* Branding Footer inside Sidebar */}
+        <div style={{ position: 'absolute', bottom: '16px', left: '76px', right: '16px', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '6px', opacity: 0.3, pointerEvents: 'none' }}>
+          <span style={{ color: 'var(--text-color, #aaa)', fontSize: '11px' }}>Developed by</span>
+          <img src="/main_logo.svg" alt="Celiox Logo" style={{ width: '12px', height: '12px' }} />
+          <span style={{ color: 'var(--text-color, #fff)', fontSize: '11px', fontWeight: 600, letterSpacing: '0.5px' }}>CELIOX</span>
+        </div>
       </div>
     </>
   );

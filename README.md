@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Celiox Timer App
 
-## Getting Started
+A sleek, premium, and highly customizable desktop timer application built with Next.js, Electron, and React. Designed for maximum productivity, the Celiox Timer App provides a powerful toolset for tracking work sessions, managing repetitive tasks, and analyzing your time history.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Dual Modes:** Seamlessly switch between a traditional Countdown timer and an open-ended Stopwatch mode.
+- **Dynamic Task Library:** Save repetitive tasks with pre-configured durations and default notes.
+- **Sub-task Logging:** When loading a saved task, you can instantly append a specific "sub-task" note before starting the timer, allowing you to track exactly what you worked on.
+- **Granular History:** Automatically saves your completed timer sessions. You can review your history in the sidebar and delete individual entries to keep your records clean.
+- **Customizable Themes:** A built-in Settings tab allows you to completely customize the app's background, text, and button colors to match your aesthetic perfectly.
+- **Always on Top:** A handy pin icon allows you to lock the timer to the top of your screen, ensuring it stays visible above all other windows while you work.
+- **Fluid Sidebar Interface:** A beautiful, animated left-rail navigation sidebar that automatically minimizes when a timer is started so it stays out of your way.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Tech Stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** Next.js (App Router, Turbopack)
+- **Desktop Wrapper:** Electron (via electron-builder)
+- **UI & Styling:** React, Vanilla CSS, Lucide React (Icons)
+- **State Management:** React Hooks (`useState`, `useEffect`, `useCallback`)
+- **Storage:** LocalStorage (Persistence for History, Tasks, and Themes)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Installation
 
-## Learn More
+You can find the compiled Windows Installer (`.exe`) in the `dist/` directory after building.
 
-To learn more about Next.js, take a look at the following resources:
+1. Navigate to `dist/Celiox Timer App Setup 0.1.0.exe`.
+2. Run the installer and follow the prompts.
+3. Launch the application from your desktop or start menu.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Development Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To run the application locally in development mode:
 
-## Deploy on Vercel
+1. Clone the repository and navigate into the project directory.
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server (runs both Next.js and Electron):
+   ```bash
+   npm run dev
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Building for Production
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+To package the application into a standalone Windows executable (`.exe`):
+
+1. Run the build command:
+   ```bash
+   npm run build
+   ```
+2. Wait for the compilation to finish. The output installer will be located in the `dist/` directory.
+
+## Customization & Theming
+
+The app uses an internal custom hook (`useTheme`) to manage DOM root variables dynamically. The default theme is a deep dark aesthetic (`#111111` background, `#ffffff` text, `#222222` buttons), but these can be reset or overridden in real-time from the Settings tab in the sidebar.
+
+## Author
+
+Developed by **CELIOX**.
