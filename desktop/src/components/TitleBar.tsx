@@ -1,9 +1,36 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { Maximize, Pin, Square, Copy } from 'lucide-react';
 
 export default function TitleBar() {
   const [isPinned, setIsPinned] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isMaximized, setIsMaximized] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setIsFullscreen(false);
+        if (typeof window !== 'undefined' && (window as any).require) {
+          const { ipcRenderer } = (window as any).require('electron');
+          ipcRenderer.send('exit-fullscreen');
+        }
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  const handleFullscreen = () => {
+    setIsFullscreen(true);
+    if (typeof window !== 'undefined' && (window as any).require) {
+      const { ipcRenderer } = (window as any).require('electron');
+      ipcRenderer.send('toggle-fullscreen');
+    }
+  };
+
+  if (isFullscreen) return <div style={{ display: 'none' }} />;
 
   return (
     <div className="titlebar">
@@ -12,6 +39,15 @@ export default function TitleBar() {
         <span style={{ fontWeight: 600 }}>Celiox Timer App</span>
       </div>
       <div style={{ display: 'flex', height: '100%', WebkitAppRegion: 'no-drag', paddingRight: '12px' } as any}>
+        <button 
+          title="Fullscreen"
+          onClick={handleFullscreen}
+          style={{ height: '100%', background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '0 16px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
+          onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+        >
+          <Maximize size={14} />
+        </button>
         <button 
           title="Always on Top"
           onClick={() => {
@@ -25,7 +61,7 @@ export default function TitleBar() {
           onMouseEnter={(e) => e.currentTarget.style.background = isPinned ? 'rgba(255,255,255,0.3)' : 'rgba(255,255,255,0.1)'}
           onMouseLeave={(e) => e.currentTarget.style.background = isPinned ? 'rgba(255,255,255,0.2)' : 'transparent'}
         >
-          📌
+          <Pin size={14} fill={isPinned ? 'currentColor' : 'none'} style={{ transition: 'transform 0.3s ease', transform: isPinned ? 'rotate(45deg)' : 'rotate(90deg)' }} />
         </button>
         <button 
           title="Minimize"
@@ -47,13 +83,14 @@ export default function TitleBar() {
             if (typeof window !== 'undefined' && (window as any).require) {
               const { ipcRenderer } = (window as any).require('electron');
               ipcRenderer.send('maximize-window');
+              setIsMaximized(!isMaximized);
             }
           }}
           style={{ height: '100%', background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', padding: '0 16px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '16px' }}
           onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(255,255,255,0.1)'}
           onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
         >
-          □
+          {isMaximized ? <Copy size={12} style={{ transform: 'scaleX(-1)' }} /> : <Square size={12} />}
         </button>
         <button 
           title="Close"

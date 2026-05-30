@@ -52,6 +52,14 @@ function createWindow() {
   ipcMain.on('close-window', () => {
     win.close();
   });
+
+  ipcMain.on('toggle-fullscreen', () => {
+    win.setFullScreen(!win.isFullScreen());
+  });
+
+  ipcMain.on('exit-fullscreen', () => {
+    win.setFullScreen(false);
+  });
 }
 
 app.on('ready', () => {

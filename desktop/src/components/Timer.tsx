@@ -95,7 +95,7 @@ export default function Timer() {
           <div style={modalOverlayStyle}>
             <div style={modalContainerStyle}>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <h2 style={{ margin: 0, fontWeight: 500 }}>Timer Setup</h2>
+                <h2 style={{ margin: 0, fontWeight: 500 }}>{mode === 'countdown' ? 'Timer Setup' : 'Stopwatch Setup'}</h2>
                 <button onClick={() => setShowSettings(false)} style={{ background: 'transparent', border: 'none', color: 'var(--text-color, #fff)', cursor: 'pointer' }}><X size={24} /></button>
               </div>
               
@@ -109,20 +109,22 @@ export default function Timer() {
                 <textarea placeholder="e.g., Solve before 4 mins..." value={taskNote} onChange={(e) => setTaskNote(e.target.value)} style={{ ...inputStyle, minHeight: '60px', resize: 'vertical' }} />
               </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                <div style={{ flex: 1 }}>
-                  <label style={labelStyle}>Time Amount</label>
-                  <input type="number" min="0" value={inputValue} onChange={(e) => setInputValue(e.target.value)} style={inputStyle} />
+              {mode === 'countdown' && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <div style={{ flex: 1 }}>
+                    <label style={labelStyle}>Time Amount</label>
+                    <input type="number" min="0" value={inputValue} onChange={(e) => setInputValue(e.target.value)} style={inputStyle} />
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <label style={labelStyle}>Unit</label>
+                    <select value={inputUnit} onChange={(e) => setInputUnit(e.target.value as any)} style={inputStyle}>
+                      <option value="hours">Hours</option>
+                      <option value="minutes">Minutes</option>
+                      <option value="seconds">Seconds</option>
+                    </select>
+                  </div>
                 </div>
-                <div style={{ flex: 1 }}>
-                  <label style={labelStyle}>Unit</label>
-                  <select value={inputUnit} onChange={(e) => setInputUnit(e.target.value as any)} style={inputStyle}>
-                    <option value="hours">Hours</option>
-                    <option value="minutes">Minutes</option>
-                    <option value="seconds">Seconds</option>
-                  </select>
-                </div>
-              </div>
+              )}
 
               <button className="btn" style={{ background: 'var(--text-color, #fff)', color: 'var(--bg-color, #000)', marginTop: '8px' }} onClick={handleSetTime}>Confirm & Load</button>
             </div>
@@ -141,15 +143,17 @@ export default function Timer() {
             </div>
             
             <div className="controls" style={{ display: 'flex', gap: '24px', marginTop: '60px', alignItems: 'center' }}>
-              <button className="btn" style={{ background: 'transparent', color: 'var(--text-color, #888)', border: '1px solid var(--btn-color, #333)' }} onClick={() => switchMode(mode === 'countdown' ? 'stopwatch' : 'countdown')}>
-                Switch to {mode === 'countdown' ? 'Stopwatch' : 'Countdown'}
-              </button>
+              
+              {/* Segmented Mode Switcher */}
+              <div style={{ display: 'flex', background: 'var(--btn-color, #222)', borderRadius: '24px', padding: '4px' }}>
+                <button onClick={() => switchMode('countdown')} style={{ padding: '8px 20px', borderRadius: '20px', background: mode === 'countdown' ? 'var(--text-color, #fff)' : 'transparent', color: mode === 'countdown' ? 'var(--bg-color, #000)' : 'var(--text-color, #fff)', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s' }}>Timer</button>
+                <button onClick={() => switchMode('stopwatch')} style={{ padding: '8px 20px', borderRadius: '20px', background: mode === 'stopwatch' ? 'var(--text-color, #fff)' : 'transparent', color: mode === 'stopwatch' ? 'var(--bg-color, #000)' : 'var(--text-color, #fff)', border: 'none', cursor: 'pointer', fontWeight: 600, fontSize: '0.9rem', transition: 'all 0.2s' }}>Stopwatch</button>
+              </div>
 
-              {mode === 'countdown' && (
-                <button className="btn btn-icon" style={{ background: 'var(--btn-color, #222)', color: 'var(--text-color, #fff)' }} onClick={() => setShowSettings(true)} title="Settings">
-                  <Settings size={24} />
-                </button>
-              )}
+              {/* Settings Button (Always Visible) */}
+              <button className="btn btn-icon" style={{ background: 'var(--btn-color, #222)', color: 'var(--text-color, #fff)' }} onClick={() => setShowSettings(true)} title="Task Settings">
+                <Settings size={24} />
+              </button>
 
               <button className="btn btn-icon" onClick={toggleTimer} style={{ width: '80px', height: '80px', background: 'var(--text-color, #fff)', color: 'var(--bg-color, #000)', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 {isActive ? <Pause size={36} /> : <Play size={36} style={{ marginLeft: '4px' }} />}
