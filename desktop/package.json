@@ -47,5 +47,8 @@
       "target": "nsis",
       "icon": "public/timer_logo.png"
     }
+  },
+  "overrides": {
+    "postcss": "^8.5.10"
   }
 }

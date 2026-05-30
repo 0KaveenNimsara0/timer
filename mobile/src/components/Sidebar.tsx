@@ -176,9 +176,31 @@ export default function Sidebar({
               <View style={[styles.card, { backgroundColor: colors.button }]}>
                 <Text style={{ color: colors.text, fontSize: 16, fontWeight: 'bold', marginBottom: 16 }}>Theme Settings</Text>
                 
-                <Text style={{ color: colors.text, opacity: 0.8, marginBottom: 16 }}>
-                  (Theme picking involves Native Color Pickers. Pre-configured themes coming soon!)
-                </Text>
+                <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginBottom: 20 }}>
+                  {[
+                    { name: 'Dark', colors: { background: '#111111', text: '#ffffff', button: '#222222' } },
+                    { name: 'Light', colors: { background: '#f8f9fa', text: '#111827', button: '#e5e7eb' } },
+                    { name: 'Ocean', colors: { background: '#0f172a', text: '#38bdf8', button: '#1e293b' } },
+                    { name: 'Forest', colors: { background: '#064e3b', text: '#34d399', button: '#065f46' } },
+                    { name: 'Sunset', colors: { background: '#431407', text: '#fdba74', button: '#7c2d12' } },
+                  ].map(theme => (
+                    <TouchableOpacity 
+                      key={theme.name}
+                      onPress={() => updateColors(theme.colors)}
+                      style={{ 
+                        width: '46%', 
+                        padding: 12, 
+                        borderRadius: 8, 
+                        backgroundColor: theme.colors.background,
+                        borderWidth: 2,
+                        borderColor: colors.background === theme.colors.background ? theme.colors.text : theme.colors.button,
+                        alignItems: 'center'
+                      }}
+                    >
+                      <Text style={{ color: theme.colors.text, fontWeight: 'bold' }}>{theme.name}</Text>
+                    </TouchableOpacity>
+                  ))}
+                </View>
 
                 <TouchableOpacity 
                   style={[styles.resetBtn, { borderColor: colors.text }]}
